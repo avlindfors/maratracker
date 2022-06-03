@@ -40,7 +40,7 @@ export default function Index() {
         <tbody>
           {
             sections.map((section, index) => {
-              const backgroundColor = index % 2 === 0 ? 'bg-blue-100' : ''
+              const backgroundColor = index % 2 === 0 ? 'bg-slate-100' : ''
               return (
                 <React.Fragment key={`section-${section}`}>
                   <tr className={backgroundColor}>
