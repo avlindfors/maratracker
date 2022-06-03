@@ -41,16 +41,18 @@ export default function App() {
                   <Link to="/" prefetch="intent" className="underline font-medium">
                     Times
                   </Link>
-                  <Link to="/pace" prefetch="render" className="underline font-medium">
-                    Pace
-                  </Link>
                   <Link to="/places" prefetch="render" className="underline font-medium">
                     Places
+                  </Link>
+                  <Link to="/pace" prefetch="render" className="underline font-medium">
+                    Pace
                   </Link>
                 </nav>
               </div>
             </header>
-            <Outlet />
+            <div className="pb-12">
+              <Outlet />
+            </div>
             <ScrollRestoration />
             <Scripts />
             <LiveReload />

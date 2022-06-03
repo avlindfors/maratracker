@@ -26,16 +26,15 @@ export default function Index() {
   const setEarliestSection = (earliestSection: Section) => setFilter((old) => ({ ...old, earliestSection }))
 
   return (
-    <div>
+    <div >
       <p className="mb-2 text-slate-900">Se samlad information om grabbarna, uppdatera sidan för att få ny data</p>
       <div className="mb-1">
-        <h2 className="text-sm italic">Jacob, Number {jacob.startNumber}</h2>
-        <h2 className="text-sm italic">Daniel, Number {daniel.startNumber}</h2>
+        <h2 className="text-sm italic">Jacob Jalsing (JJ), Number {jacob.startNumber}</h2>
+        <h2 className="text-sm italic">Daniel Svensson (DS), Number {daniel.startNumber}</h2>
       </div>
       <div className="mb-4 flex flex-col gap-2">
-        <p>Filters</p>
         <div>
-          <p className="mb-1 text-sm">Boy</p>
+          <p className="mb-1 text-sm">Grabb</p>
           <div className="flex gap-4">
             <button onClick={() => setRunnerFilter("Jacob")} type="button" className={`px-2 py-1 rounded-md  ${filters.runner === 'Jacob' ? 'bg-blue-200' : 'bg-slate-100'}`}>Jacob</button>
             <button onClick={() => setRunnerFilter("Daniel")} type="button" className={`px-2 py-1 rounded-md ${filters.runner === 'Daniel' ? 'bg-blue-200' : 'bg-slate-100'}`}>Daniel</button>
@@ -55,11 +54,11 @@ export default function Index() {
         <thead className="">
           <tr className=" text-sm text-slate-500">
             <th>#</th>
-            <th>Boy</th>
+            <th>Grabb</th>
             <th>Total</th>
             <th>Lap</th>
             <th>Pace</th>
-            <th>End</th>
+            <th>~End</th>
           </tr>
         </thead>
         <tbody>
@@ -80,7 +79,7 @@ export default function Index() {
                       (
                         <tr className={backgroundColor}>
                           <th className=" text-xs">{section}</th>
-                          <td>Jacob</td>
+                          <td className="text-sm">JJ</td>
                           <td>{jacob.data[section].time}</td>
                           <td>{jacob.data[section].sectionTime}</td>
                           <td>{jacob.data[section].pace}</td>
@@ -92,7 +91,7 @@ export default function Index() {
                     runner === "Both" || runner === "Daniel" ? (
                       <tr className={backgroundColor}>
                         <th className=" text-xs">{runner === 'Daniel' ? section : ''}</th>
-                        <td>Daniel</td>
+                        <td className="text-sm">DS</td>
                         <td>{daniel.data[section].time}</td>
                         <td>{daniel.data[section].sectionTime}</td>
                         <td>{daniel.data[section].pace}</td>

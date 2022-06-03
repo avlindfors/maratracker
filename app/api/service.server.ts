@@ -24,11 +24,12 @@ export const getResults = async (url: string) => {
       timeUtils.timeToDuration(time),
       timeUtils.timeToDuration(pace)
     );
+    const formattedEndTime = distance.formatEstimatedEndTime(estimatedEndTime);
     const section = {
       time,
       sectionTime: sectionData.children('.diff').text(),
       pace,
-      estimatedEndTime: distance.formatEstimatedEndTime(estimatedEndTime),
+      estimatedEndTime: formattedEndTime,
     };
     allSections[key] = section;
   });

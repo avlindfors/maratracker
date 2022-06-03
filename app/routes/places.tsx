@@ -33,7 +33,7 @@ const Places = () => {
                 <p>{value}</p>
             </div>
         })}
-        <div className="bg-green-50 p-2">
+        <div className="bg-green-50 p-2 my-4">
             <p className="mb-2 text-sm text-slate-600 ">Mest passerade områden</p>
             {Object.entries(locations).map(([key, value]) => {
                 return <div key={key} className="mb-2">

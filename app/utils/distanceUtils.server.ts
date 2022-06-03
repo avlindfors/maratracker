@@ -47,14 +47,24 @@ const estimateEndTime = (
   return initial.plus(currentTime).normalize().toObject();
 };
 
+const normalizeNumberToZeroPrefixedNumber = (
+  number: number | undefined
+): string => {
+  return typeof number === 'number' && number - 10 < 0
+    ? '0' + number
+    : '' + number ?? '00';
+};
 const formatEstimatedEndTime = (
   estimatedEndTime: DurationLikeObject
-): `${number}.${number}.${number}` | '-' => {
+): `${string}:${string}:${string}` | '-' => {
   const { hours, minutes, seconds } = estimatedEndTime;
   if (!hours && !minutes && !seconds) {
     return '-';
   }
-  return `${hours ?? 0}.${minutes ?? 0}.${seconds ?? 0}`;
+  const normalizedHours = normalizeNumberToZeroPrefixedNumber(hours);
+  const normalizedMinutes = normalizeNumberToZeroPrefixedNumber(minutes);
+  const normalizedSeconds = normalizeNumberToZeroPrefixedNumber(seconds);
+  return `${normalizedHours}:${normalizedMinutes}:${normalizedSeconds}`;
 };
 
 export default {
