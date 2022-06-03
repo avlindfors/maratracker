@@ -19,20 +19,22 @@ export default function Index() {
   const { jacob, daniel } = useLoaderData();
   return (
     <div>
-      <h1>
+      <h1 className="text-xl mb-0.5">
         Maratracker
       </h1>
-      <h2>{jacob.name} {jacob.startNumber}</h2>
-      <h2>{daniel.name} {daniel.startNumber}</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Distans</th>
+      <div className="mb-4">
+        <h2 className="text-sm italic">{jacob.name} {jacob.startNumber}</h2>
+        <h2 className="text-sm italic">{daniel.name} {daniel.startNumber}</h2>
+      </div>
+      <table className="table-auto w-full text-lg text-left">
+        <thead className="">
+          <tr className="">
+            <th>#</th>
             <th>Löpare</th>
-            <th>Tid</th>
-            <th>Sträcktid</th>
-            <th>min/km</th>
-            <th>Sluttid</th>
+            <th>Tid 1</th>
+            <th>Tid 2</th>
+            <th>Pace</th>
+            <th>End</th>
           </tr>
         </thead>
         <tbody>
@@ -40,16 +42,16 @@ export default function Index() {
             sections.map((section) => {
               return (
                 <React.Fragment key={`section-${section}`}>
-                  <tr>
-                    <th>{section}</th>
+                  <tr className="">
+                    <th className=" text-xs">{section}</th>
                     <td>Jacob</td>
                     <td>{jacob.data[section].time}</td>
                     <td>{jacob.data[section].sectionTime}</td>
                     <td>{jacob.data[section].pace}</td>
                     <td>{jacob.data[section].estimatedEndTime}</td>
                   </tr>
-                  <tr>
-                    <th></th>
+                  <tr className="">
+                    <th className=" text-xs"></th>
                     <td>Daniel</td>
                     <td>{daniel.data[section].time}</td>
                     <td>{daniel.data[section].sectionTime}</td>
@@ -62,6 +64,6 @@ export default function Index() {
           }
         </tbody>
       </table>
-    </div>
+    </div >
   )
 }
