@@ -24,7 +24,6 @@ const timeToDuration = (time: string): DurationLikeObject => {
         throw new Error('Invalid time: ' + time);
     }
   } catch (e) {
-    console.log(e);
     return Duration.fromObject({
       hours: 0,
       minutes: 0,

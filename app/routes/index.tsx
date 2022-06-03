@@ -1,30 +1,9 @@
+import type { LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import * as cheerio from 'cheerio';
-import distance, { Section } from "~/utils/distanceUtils.server";
-import timeUtils from "~/utils/timeUtils.server";
+import React from "react";
+import { getResults } from "~/api/service.server";
 
-const getResults = async (url: string) => {
-  const rawHtml = await fetch(url).then(result => result.text());
-  const $ = cheerio.load(rawHtml);
-  const name = $('.f-__fullname .last').text();
-  const startNumber = $('.f-start_no').children('.f-start_no .last').text();
-  const allSections: { [x: string]: { time: string, sectionTime: string, pace: string, estimatedEndTime: string } } = {}
-  Object.entries(Section).forEach(([key, value]) => {
-    const sectionData = $(`.${value}`);
-    const time = sectionData.children('.time').text();
-    const pace = sectionData.children('.min_km').text();
-    const estimatedEndTime = distance.estimateEndTime(key, timeUtils.timeToDuration(time), timeUtils.timeToDuration(pace))
-    const section = {
-      time,
-      sectionTime: sectionData.children('.diff').text(),
-      pace,
-      estimatedEndTime: distance.formatEstimatedEndTime(estimatedEndTime)
-    }
-    allSections[key] = section;
-  })
-  return { name, startNumber, data: allSections }
-}
-export const loader = async () => {
+export const loader: LoaderFunction = async () => {
   const jacob = "http://results.marathon.se/2022/?content=detail&fpid=search&pid=search&idp=BH2BEQLSA80A2&lang=SE&event=STHM&search%5Bname%5D=Jalsing&search%5Bfirstname%5D=Jacob&search_event=STHM";
   const daniel = "http://results.marathon.se/2022/?content=detail&fpid=search&pid=search&idp=BH2BEQLSA80A3&lang=SE&event=STHM&search%5Bname%5D=Svensson&search%5Bfirstname%5D=Daniel&search_event=STHM";
   const resultsForJacob = await getResults(jacob);
@@ -35,8 +14,9 @@ export const loader = async () => {
   }
 }
 
+const sections = ["5k", "10k", "15k", "20k", "Halv", "25k", "30k", "35k", "40k", "Hel"];
 export default function Index() {
-  const { jacob, daniel } = useLoaderData<Awaited<ReturnType<typeof loader>>>();
+  const { jacob, daniel } = useLoaderData();
   return (
     <div>
       <h1>
@@ -52,35 +32,36 @@ export default function Index() {
             <th>Tid</th>
             <th>Sträcktid</th>
             <th>min/km</th>
-            <th>~Sluttid</th>
+            <th>Sluttid</th>
           </tr>
         </thead>
         <tbody>
           {
-            Object.keys(Section).map((section) => {
-              return <div key={section}>
-                <tr>
-                  <th>{section}</th>
-                  <td>Jacob</td>
-                  <td>{jacob.data[section].time}</td>
-                  <td>{jacob.data[section].sectionTime}</td>
-                  <td>{jacob.data[section].pace}</td>
-                  <td>{jacob.data[section].estimatedEndTime}</td>
-                </tr>
-                <tr>
-                  <th>-</th>
-                  <td>Daniel</td>
-                  <td>{daniel.data[section].time}</td>
-                  <td>{daniel.data[section].sectionTime}</td>
-                  <td>{daniel.data[section].pace}</td>
-                  <td>{daniel.data[section].estimatedEndTime}</td>
-                </tr>
-              </div>
+            sections.map((section) => {
+              return (
+                <React.Fragment key={`section-${section}`}>
+                  <tr>
+                    <th>{section}</th>
+                    <td>Jacob</td>
+                    <td>{jacob.data[section].time}</td>
+                    <td>{jacob.data[section].sectionTime}</td>
+                    <td>{jacob.data[section].pace}</td>
+                    <td>{jacob.data[section].estimatedEndTime}</td>
+                  </tr>
+                  <tr>
+                    <th></th>
+                    <td>Daniel</td>
+                    <td>{daniel.data[section].time}</td>
+                    <td>{daniel.data[section].sectionTime}</td>
+                    <td>{daniel.data[section].pace}</td>
+                    <td>{daniel.data[section].estimatedEndTime}</td>
+                  </tr>
+                </React.Fragment>
+              )
             })
           }
         </tbody>
-
       </table>
     </div>
-  );
+  )
 }
