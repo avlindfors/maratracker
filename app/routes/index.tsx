@@ -1,6 +1,6 @@
 import type { LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import React from "react";
+import React, { useState } from "react";
 import { getResults } from "~/api/service.server";
 
 export const loader: LoaderFunction = async () => {
@@ -15,17 +15,33 @@ export const loader: LoaderFunction = async () => {
 }
 
 const sections = ["5k", "10k", "15k", "20k", "Halv", "25k", "30k", "35k", "40k", "Hel"];
+
+type Section = "5k" | "10k" | "15k" | "20k" | "Halv" | "25k" | "30k" | "35k" | "40k" | "Hel"
+type Runner = 'Jacob' | "Daniel" | 'Both';
 export default function Index() {
   const { jacob, daniel } = useLoaderData();
+  const [filters, setFilter] = useState<{ runner: Runner, earliestSection: Section }>({ runner: "Both", earliestSection: "5k" });
+
+  const setRunnerFilter = (runner: Runner) => setFilter((old) => ({ ...old, runner }))
+  const setEarliestSection = (earliestSection: Section) => setFilter((old) => ({ ...old, earliestSection }))
+
   return (
     <div>
-      <h1 className="text-xl mb-0.5 tracking-widest font-black uppercase">
-        Maratracker
-      </h1>
       <div className="mb-4">
         <h2 className="text-sm italic">{jacob.name} {jacob.startNumber}</h2>
         <h2 className="text-sm italic">{daniel.name} {daniel.startNumber}</h2>
       </div>
+      <div className="mb-4">
+        <p className="mb-1 ">Filters</p>
+        <div>
+          <p className="mb-1 text-sm">Runner</p>
+          <div className="flex gap-4">
+            <button onClick={() => setRunnerFilter("Jacob")} type="button" className={`px-2 py-1 rounded-md  ${filters.runner === 'Jacob' ? 'bg-blue-200' : 'bg-slate-100'}`}>Jacob</button>
+            <button onClick={() => setRunnerFilter("Daniel")} type="button" className={`px-2 py-1 rounded-md ${filters.runner === 'Daniel' ? 'bg-blue-200' : 'bg-slate-100'}`}>Daniel</button>
+            <button onClick={() => setRunnerFilter("Both")} type="button" className={`px-2 py-1 rounded-md   ${filters.runner === 'Both' ? 'bg-blue-200' : 'bg-slate-100'}`}>Both</button>
+          </div>
+        </div>
+      </div >
       <table className="table-auto w-full text-lg text-left">
         <thead className="">
           <tr className=" text-sm text-slate-500">
@@ -41,24 +57,34 @@ export default function Index() {
           {
             sections.map((section, index) => {
               const backgroundColor = index % 2 === 0 ? 'bg-slate-100' : ''
+              const { runner } = filters;
               return (
                 <React.Fragment key={`section-${section}`}>
-                  <tr className={backgroundColor}>
-                    <th className=" text-xs">{section}</th>
-                    <td>Jacob</td>
-                    <td>{jacob.data[section].time}</td>
-                    <td>{jacob.data[section].sectionTime}</td>
-                    <td>{jacob.data[section].pace}</td>
-                    <td>{jacob.data[section].estimatedEndTime}</td>
-                  </tr>
-                  <tr className={backgroundColor}>
-                    <th className=" text-xs"></th>
-                    <td>Daniel</td>
-                    <td>{daniel.data[section].time}</td>
-                    <td>{daniel.data[section].sectionTime}</td>
-                    <td>{daniel.data[section].pace}</td>
-                    <td>{daniel.data[section].estimatedEndTime}</td>
-                  </tr>
+                  {
+                    runner === "Both" || runner === "Jacob" ?
+                      (
+                        <tr className={backgroundColor}>
+                          <th className=" text-xs">{section}</th>
+                          <td>Jacob</td>
+                          <td>{jacob.data[section].time}</td>
+                          <td>{jacob.data[section].sectionTime}</td>
+                          <td>{jacob.data[section].pace}</td>
+                          <td>{jacob.data[section].estimatedEndTime}</td>
+                        </tr>
+                      ) : null
+                  }
+                  {
+                    runner === "Both" || runner === "Daniel" ? (
+                      <tr className={backgroundColor}>
+                        <th className=" text-xs">{runner === 'Daniel' ? section : ''}</th>
+                        <td>Daniel</td>
+                        <td>{daniel.data[section].time}</td>
+                        <td>{daniel.data[section].sectionTime}</td>
+                        <td>{daniel.data[section].pace}</td>
+                        <td>{daniel.data[section].estimatedEndTime}</td>
+                      </tr>
+                    ) : null
+                  }
                 </React.Fragment>
               )
             })
