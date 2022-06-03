@@ -26,7 +26,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className=" text-slate-700 bg-slate-100">
+      <body className=" text-slate-700 bg-slate-50">
         <div className=" flex justify-center">
           <div className="w-full max-w-5xl p-2">
             <Outlet />

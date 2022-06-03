@@ -19,7 +19,7 @@ export default function Index() {
   const { jacob, daniel } = useLoaderData();
   return (
     <div>
-      <h1 className="text-xl mb-0.5">
+      <h1 className="text-xl mb-0.5 tracking-widest font-black uppercase">
         Maratracker
       </h1>
       <div className="mb-4">
@@ -28,7 +28,7 @@ export default function Index() {
       </div>
       <table className="table-auto w-full text-lg text-left">
         <thead className="">
-          <tr className="">
+          <tr className=" text-sm text-slate-500">
             <th>#</th>
             <th>Löpare</th>
             <th>Tid 1</th>
@@ -39,10 +39,11 @@ export default function Index() {
         </thead>
         <tbody>
           {
-            sections.map((section) => {
+            sections.map((section, index) => {
+              const backgroundColor = index % 2 === 0 ? 'bg-blue-100' : ''
               return (
                 <React.Fragment key={`section-${section}`}>
-                  <tr className="">
+                  <tr className={backgroundColor}>
                     <th className=" text-xs">{section}</th>
                     <td>Jacob</td>
                     <td>{jacob.data[section].time}</td>
@@ -50,7 +51,7 @@ export default function Index() {
                     <td>{jacob.data[section].pace}</td>
                     <td>{jacob.data[section].estimatedEndTime}</td>
                   </tr>
-                  <tr className="">
+                  <tr className={backgroundColor}>
                     <th className=" text-xs"></th>
                     <td>Daniel</td>
                     <td>{daniel.data[section].time}</td>
