@@ -27,14 +27,15 @@ export default function Index() {
 
   return (
     <div>
+      <p className="mb-2 text-slate-900">Se samlad information om grabbarna, uppdatera sidan för att få ny data</p>
       <div className="mb-1">
-        <h2 className="text-sm italic">{jacob.name} {jacob.startNumber}</h2>
-        <h2 className="text-sm italic">{daniel.name} {daniel.startNumber}</h2>
+        <h2 className="text-sm italic">Jacob, Number {jacob.startNumber}</h2>
+        <h2 className="text-sm italic">Daniel, Number {daniel.startNumber}</h2>
       </div>
       <div className="mb-4 flex flex-col gap-2">
         <p>Filters</p>
         <div>
-          <p className="mb-1 text-sm">Runner</p>
+          <p className="mb-1 text-sm">Boy</p>
           <div className="flex gap-4">
             <button onClick={() => setRunnerFilter("Jacob")} type="button" className={`px-2 py-1 rounded-md  ${filters.runner === 'Jacob' ? 'bg-blue-200' : 'bg-slate-100'}`}>Jacob</button>
             <button onClick={() => setRunnerFilter("Daniel")} type="button" className={`px-2 py-1 rounded-md ${filters.runner === 'Daniel' ? 'bg-blue-200' : 'bg-slate-100'}`}>Daniel</button>
@@ -42,7 +43,7 @@ export default function Index() {
           </div>
         </div>
         <div>
-          <p className="mb-1 text-sm">Earliest section</p>
+          <p className="mb-1 text-sm">Include #</p>
           <div className="flex gap-4">
             <button onClick={() => setEarliestSection("Halv")} type="button" className={`px-2 py-1 rounded-md  ${filters.earliestSection === 'Halv' ? 'bg-blue-200' : 'bg-slate-100'}`}>Half</button>
             <button onClick={() => setEarliestSection("Hel")} type="button" className={`px-2 py-1 rounded-md ${filters.earliestSection === 'Hel' ? 'bg-blue-200' : 'bg-slate-100'}`}>Whole</button>
@@ -54,9 +55,9 @@ export default function Index() {
         <thead className="">
           <tr className=" text-sm text-slate-500">
             <th>#</th>
-            <th>Löpare</th>
-            <th>Tid 1</th>
-            <th>Tid 2</th>
+            <th>Boy</th>
+            <th>Total</th>
+            <th>Lap</th>
             <th>Pace</th>
             <th>End</th>
           </tr>

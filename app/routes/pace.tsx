@@ -55,6 +55,7 @@ const Pace = () => {
     const paces = useLoaderData<Awaited<ReturnType<typeof loader>>>();
 
     return <div>
+        <p className="mb-2 text-slate-900">Se ungefär vad en genomsnittlig hastighet ger för resultat</p>
         {paces.map((paceItem) => {
             const { pace, data } = paceItem;
             return <div key={pace} className="mb-6">
