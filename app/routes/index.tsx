@@ -38,14 +38,14 @@ export default function Index() {
           <div className="flex gap-4">
             <button onClick={() => setRunnerFilter("Jacob")} type="button" className={`px-2 py-1 rounded-md  ${filters.runner === 'Jacob' ? 'bg-blue-200' : 'bg-slate-100'}`}>Jacob</button>
             <button onClick={() => setRunnerFilter("Daniel")} type="button" className={`px-2 py-1 rounded-md ${filters.runner === 'Daniel' ? 'bg-blue-200' : 'bg-slate-100'}`}>Daniel</button>
-            <button onClick={() => setRunnerFilter("Both")} type="button" className={`px-2 py-1 rounded-md   ${filters.runner === 'Both' ? 'bg-blue-200' : 'bg-slate-100'}`}>Both</button>
+            <button onClick={() => setRunnerFilter("Both")} type="button" className={`px-2 py-1 rounded-md   ${filters.runner === 'Both' ? 'bg-blue-200' : 'bg-slate-100'}`}>Båda</button>
           </div>
         </div>
         <div>
-          <p className="mb-1 text-sm">Include #</p>
+          <p className="mb-1 text-sm">Inkludera #</p>
           <div className="flex gap-4">
-            <button onClick={() => setEarliestSection("Halv")} type="button" className={`px-2 py-1 rounded-md  ${filters.earliestSection === 'Halv' ? 'bg-blue-200' : 'bg-slate-100'}`}>Half</button>
-            <button onClick={() => setEarliestSection("Hel")} type="button" className={`px-2 py-1 rounded-md ${filters.earliestSection === 'Hel' ? 'bg-blue-200' : 'bg-slate-100'}`}>Whole</button>
+            <button onClick={() => setEarliestSection("Halv")} type="button" className={`px-2 py-1 rounded-md  ${filters.earliestSection === 'Halv' ? 'bg-blue-200' : 'bg-slate-100'}`}>Halv</button>
+            <button onClick={() => setEarliestSection("Hel")} type="button" className={`px-2 py-1 rounded-md ${filters.earliestSection === 'Hel' ? 'bg-blue-200' : 'bg-slate-100'}`}>Hel</button>
 
           </div>
         </div>
@@ -56,9 +56,9 @@ export default function Index() {
             <th>#</th>
             <th>Grabb</th>
             <th>Total</th>
-            <th>Lap</th>
-            <th>Pace</th>
-            <th>~End</th>
+            <th>Sträcktid</th>
+            <th>m/kh</th>
+            <th>~Slut</th>
           </tr>
         </thead>
         <tbody>

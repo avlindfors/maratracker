@@ -39,13 +39,13 @@ export default function App() {
               <div className="my-4 mt-2">
                 <nav className="flex w-full justify-start gap-6 text-lg uppercase tracking-wide font-medium">
                   <Link to="/" prefetch="intent" className="underline font-medium">
-                    Times
+                    Tider
                   </Link>
                   <Link to="/places" prefetch="render" className="underline font-medium">
-                    Places
+                    Platser
                   </Link>
                   <Link to="/pace" prefetch="render" className="underline font-medium">
-                    Pace
+                    Kadensinfo
                   </Link>
                 </nav>
               </div>
