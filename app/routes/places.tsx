@@ -33,7 +33,7 @@ const Places = () => {
     return <>
         <p className="text-slate-900">Se ungefär vart varje 5k landar, kartan över hela loppet finns längst ner</p>
         <p className="mb-2 text-slate-900">Notera att de flesta siffror är grovt uppskattade med friska gissningar</p>
-        <h3 className="font-medium text-slate-900">Tips från coachen</>
+        <h3 className="font-medium text-slate-900">Tips från coachen</h3>
         <div>
             {routes.map((route, index) => <p key={index}>{route}</p>)}
         </div>
